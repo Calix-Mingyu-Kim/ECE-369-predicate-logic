@@ -1,0 +1,19 @@
+forall x, F(x) -> ~D(x)
+1. forall x, F(x) -> (exists y, C(y) /\ O(x,y)) prem;
+2. forall x, D(x) -> (forall y, C(y) -> (~O(x,y))) prem;
+3. F(Joe) -> (exists y, C(y) /\ O(Joe,y)) ui 1;
+4. D(Joe) -> (forall y, (C(y) -> ~O(Joe,y))) ui 2;
+| 5. F(Joe) hyp;
+| 6. exists y, C(y) /\ O(Joe,y) mp 3, 5;
+| 7. C(Cow) /\ O(Joe,Cow) ei 6;
+| | 8. D(Joe) hyp;
+| | 9. forall y, (C(y) -> ~O(Joe,y)) mp 4, 8;
+| | 10. C(Cow) -> ~O(Joe,Cow) ui 9;
+| | 11. C(Cow) simpl 7;
+| | 12. ~O(Joe,Cow) mp 10, 11;
+| 13. D(Joe) -> ~O(Joe,Cow) ded 8-12;
+| 14. O(Joe,Cow) simpl 7;
+| 15. ~~O(Joe, Cow) dn 14;
+| 16. ~D(Joe) mt 13, 15;
+17. F(Joe) -> (~D(Joe)) ded 5, 6, 7, 13, 14, 15, 16;
+18. forall x, F(x) -> ~D(x) ug 17;
